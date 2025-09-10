@@ -4,28 +4,18 @@ This article describes how to run Distributed Llama on 4 devices, but you can al
 
 ````
 [🔀 SWITCH OR ROUTER]
-      | | | |
-      | | | |_______ 🔸 device1 (ROOT)     10.0.0.1
-      | | |_________ 🔹 device2 (WORKER 1) 10.0.0.2:9999
-      | |___________ 🔹 device3 (WORKER 2) 10.0.0.3:9999
-      |_____________ 🔹 device4 (WORKER 3) 10.0.0.4:9999
+    | | | | |
+    | | | | |_______ 🔸 device1 (ROOT)     192.168.1.2
+    | | | |_________ 🔹 device2 (WORKER 1) 192.168.1.4:9999
+    | | |___________ 🔹 device3 (WORKER 2) 192.168.1.5:9999
+    | |_____________ 🔹 device4 (WORKER 3) 192.168.1.6:9999
+    |_______________ 🔹 device4 (WORKER 3) 192.168.1.6:9999
 ````
 
 1. Install Git and C++ compiler on **🔸🔹 ALL** devices:
 
-  * Linux: 
     ```
     sudo apt install git build-essential
-    ```
-  * MacOS
-    ```
-    brew install git
-    ```
-  * Windows
-
-    Install Git and Mingw (via [Chocolatey](https://chocolatey.org/install)):
-    ```powershell
-    choco install git mingw
     ```
 
 2. Connect **🔸🔹 ALL** devices to your **🔀 SWITCH OR ROUTER** via Ethernet cable. If you're using only two devices, it's better to connect them directly without a switch.
@@ -33,8 +23,8 @@ This article describes how to run Distributed Llama on 4 devices, but you can al
 3. Clone this repository and compile Distributed Llama on **🔸🔹 ALL** devices:
 
 ```sh
-git clone https://github.com/b4rtaz/distributed-llama.git
-cd distributed-llama
+git clone https://github.com/NASTP-ce/llm-arena
+cd llm-arena
 make dllama
 make dllama-api
 ```
