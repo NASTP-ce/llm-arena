@@ -1,0 +1,29 @@
+---
+- name: Install NFS server packages
+  ansible.builtin.apt:
+    name: nfs-kernel-server
+    state: present
+    update_cache: yes
+
+- name: Create shared folder
+  ansible.builtin.file:
+    path: /srv/shared
+    state: directory
+    owner: nobody
+    group: nogroup
+    mode: '0777'
+
+- name: Configure exports
+  ansible.builtin.lineinfile:
+    path: /etc/exports
+    line: "/srv/shared 192.168.1.0/24(rw,sync,no_subtree_check)"
+    state: present
+
+- name: Apply export changes
+  ansible.builtin.command: exportfs -ra
+
+- name: Ensure NFS service is running
+  ansible.builtin.systemd:
+    name: nfs-kernel-server
+    state: started
+    enabled: yes

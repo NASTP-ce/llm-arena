@@ -1,0 +1,19 @@
+---
+- name: Install NFS client packages
+  ansible.builtin.apt:
+    name: nfs-common
+    state: present
+    update_cache: yes
+
+- name: Create mount directory
+  ansible.builtin.file:
+    path: /mnt/shared
+    state: directory
+
+- name: Mount NFS share
+  ansible.builtin.mount:
+    path: /mnt/shared
+    src: "192.168.1.10:/srv/shared"
+    fstype: nfs
+    opts: defaults
+    state: mounted
