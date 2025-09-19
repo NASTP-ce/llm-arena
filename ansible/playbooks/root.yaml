@@ -1,0 +1,9 @@
+---
+- name: Configure NFS Server
+  hosts: hassan
+  become: yes
+
+  roles:
+    - disable_swap
+
+  

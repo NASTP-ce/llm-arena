@@ -7,13 +7,13 @@
 
 - name: Create mount directory
   ansible.builtin.file:
-    path: /mnt/shared
+    path: /mnt/share
     state: directory
 
 - name: Mount NFS share
   ansible.builtin.mount:
-    path: /mnt/shared
-    src: "192.168.1.10:/srv/shared"
+    path: /mnt/share
+    src: "192.168.1.1:/share"
     fstype: nfs
     opts: defaults
     state: mounted
