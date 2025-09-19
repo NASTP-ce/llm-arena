@@ -1,0 +1,9 @@
+---
+- name: Install Anaconda on Clients
+  hosts: three
+  become: yes
+
+  roles:
+    - anaconda
+
+  

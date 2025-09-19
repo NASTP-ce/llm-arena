@@ -1,0 +1,28 @@
+---
+- name: Ensure required packages are installed
+  ansible.builtin.package:
+    name: wget
+    state: present
+
+- name: Download Anaconda installer
+  ansible.builtin.get_url:
+    url: "{{ anaconda_download_url }}"
+    dest: "/tmp/{{ anaconda_installer }}"
+    mode: '0755'
+
+- name: Install Anaconda
+  ansible.builtin.command: "bash /tmp/{{ anaconda_installer }} -b -p {{ anaconda_install_dir }}"
+  args:
+    creates: "{{ anaconda_install_dir }}/bin/conda"
+
+- name: Ensure anaconda init is in bashrc
+  ansible.builtin.lineinfile:
+    path: "/home/{{ anaconda_user }}/.bashrc"
+    line: 'export PATH="{{ anaconda_install_dir }}/bin:$PATH"'
+    insertafter: EOF
+    state: present
+
+- name: Remove installer to save space
+  ansible.builtin.file:
+    path: "/tmp/{{ anaconda_installer }}"
+    state: absent
